@@ -1,4 +1,5 @@
 import './globals.css';
+
 import type { Metadata } from 'next';
 import { Be_Vietnam_Pro } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -6,7 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/lib/query-provider';
 import { Sidebar } from '@/components/sidebar';
 
-const spotify = Be_Vietnam_Pro({ 
+const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin'],
   weight: ['400', '600'],
   display: 'swap',
@@ -25,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${spotify.className} antialiased`} suppressHydrationWarning>
+      <body className={`${beVietnamPro.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

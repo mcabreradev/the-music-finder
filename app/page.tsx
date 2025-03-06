@@ -11,9 +11,9 @@ export default function Home() {
             Search for artists and explore their discography
           </p>
         </div>
-        
+
         <SearchForm />
-        
+
         <FeaturedArtists />
       </div>
     </div>

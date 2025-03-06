@@ -5,19 +5,19 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { 
-  Home, 
-  Search, 
-  Library, 
-  Music2, 
-  Heart, 
+import {
+  Home,
+  Search,
+  Library,
+  Music2,
+  Heart,
   ListMusic,
   PlusCircle
 } from 'lucide-react';
 
 export function Sidebar() {
   const pathname = usePathname();
-  
+
   const routes = [
     {
       label: 'Home',
@@ -38,7 +38,7 @@ export function Sidebar() {
       active: pathname === '/library',
     },
   ];
-  
+
   const playlists = [
     { name: 'Liked Songs', icon: Heart },
     { name: 'Your Episodes', icon: Music2 },
@@ -54,7 +54,7 @@ export function Sidebar() {
           <Music2 className="h-8 w-8 text-primary" />
           <span className="text-xl font-bold">MusicFinder</span>
         </Link>
-        
+
         <nav className="space-y-1 mb-8">
           {routes.map((route) => (
             <Button
@@ -73,13 +73,13 @@ export function Sidebar() {
             </Button>
           ))}
         </nav>
-        
+
         <div className="py-4">
           <div className="flex items-center justify-between mb-4 text-xs text-muted-foreground uppercase font-semibold">
             <span>Your Playlists</span>
             <PlusCircle className="h-4 w-4" />
           </div>
-          
+
           <div className="space-y-1">
             {playlists.map((playlist, i) => (
               <Button
@@ -97,7 +97,7 @@ export function Sidebar() {
           </div>
         </div>
       </div>
-      
+
       <div className="mt-auto p-6">
         <ThemeToggle />
       </div>

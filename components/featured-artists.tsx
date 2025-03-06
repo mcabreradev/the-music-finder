@@ -10,11 +10,11 @@ import { useEffect, useState } from 'react';
 
 export function FeaturedArtists() {
   const [isMounted, setIsMounted] = useState(false);
-  
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  
+
   const { data: artists, isLoading, error } = useQuery({
     queryKey: ['featuredArtists'],
     queryFn: getFeaturedArtists,
@@ -44,7 +44,7 @@ export function FeaturedArtists() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Featured Artists</h2>
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {artists?.map((artist) => (
           <ArtistCard key={artist.idArtist} artist={artist} />
@@ -58,7 +58,7 @@ function FeaturedArtistsSkeleton() {
   return (
     <div className="space-y-6">
       <Skeleton className="h-8 w-48" />
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {Array(4).fill(0).map((_, i) => (
           <div key={i} className="space-y-3">

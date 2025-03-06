@@ -20,7 +20,7 @@ export function LibraryPage() {
               </div>
               <div>
                 <h2 className="text-xl font-semibold">Liked Artists</h2>
-                <p className="text-sm text-muted-foreground">Artists you've followed</p>
+                <p className="text-sm text-muted-foreground">Artists you&apos;ve followed</p>
               </div>
             </div>
             <div className="text-center py-8">
