@@ -5,26 +5,21 @@ import { getAlbumsByArtistId } from '@/lib/api';
 import { AlbumCard } from '@/components/album-card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, Disc } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 interface AlbumListProps {
   artistId: string;
 }
 
 export function AlbumList({ artistId }: AlbumListProps) {
-  const [isMounted, setIsMounted] = useState(false);
-  
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  
+
+  console.log('artistId', artistId);
+
   const { data: albums, isLoading, error } = useQuery({
     queryKey: ['albums', artistId],
     queryFn: () => getAlbumsByArtistId(artistId),
-    enabled: isMounted, // Only run query after component mounts
   });
 
-  if (!isMounted || isLoading) {
+  if ( isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="flex flex-col items-center gap-2">

@@ -1,6 +1,7 @@
 'use client'
 
 import { Suspense } from 'react';
+import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 import { ArtistHeader } from '@/components/artist-header';
@@ -12,7 +13,8 @@ import { getArtistById } from '@/lib/api';
 type Props = { params: { id: string } }
 
 export function ArtistPage({ params }: Props) {
-  const { id: artistId } = params;
+
+  const { id: artistId } = params
 
   const { data: artist, isLoading, error } = useQuery({
     queryKey: ['artist', artistId],
