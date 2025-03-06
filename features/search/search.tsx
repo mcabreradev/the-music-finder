@@ -1,14 +1,18 @@
-import { Suspense } from 'react';
+import { Suspense, use } from 'react';
 import { SearchResults } from '@/components/search-results';
 import { SearchForm } from '@/components/search-form';
 import { Skeleton } from '@/components/ui/skeleton';
 
+// type Params = Promise<{ slug: string }>
+type SearchParams = Promise<{ q: string | undefined }>
+
+
 export function SearchPage({
   searchParams,
 }: {
-  searchParams: { q: string };
+  searchParams: SearchParams;
 }) {
-  const query = searchParams.q || '';
+  const query = use(searchParams).q || '';
 
   return (
     <div className="container mx-auto px-4 py-8">

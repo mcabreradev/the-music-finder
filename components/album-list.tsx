@@ -1,5 +1,4 @@
-"use client";
-
+// "use client";
 import { useQuery } from '@tanstack/react-query';
 import { getAlbumsByArtistId } from '@/lib/api';
 import { AlbumCard } from '@/components/album-card';

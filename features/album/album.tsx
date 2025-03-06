@@ -1,6 +1,6 @@
 import { Music2, Heart } from 'lucide-react';
 
-export function LibraryPage() {
+export function AlbumPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto space-y-8">

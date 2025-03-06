@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense } from 'react';
+import { Suspense, use } from 'react';
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
@@ -10,11 +10,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 import { getArtistById } from '@/lib/api';
 
-type Props = { params: { id: string } }
+type Params = Promise<{ id: string }>
 
-export function ArtistPage({ params }: Props) {
+export function ArtistPage({ params }: { params: Params }) {
 
-  const { id: artistId } = params
+  const artistId = use(params).id
 
   const { data: artist, isLoading, error } = useQuery({
     queryKey: ['artist', artistId],
