@@ -3,6 +3,7 @@ import { Artist } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Heart, Share2 } from 'lucide-react';
+import { LikeButton } from '@/components/like-button';
 
 interface ArtistHeaderProps {
   artist: Artist;
@@ -10,7 +11,7 @@ interface ArtistHeaderProps {
 
 export function ArtistHeader({ artist }: ArtistHeaderProps) {
   const bannerUrl = artist.strArtistBanner || artist.strArtistThumb || 'https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=1200&auto=format&fit=crop';
-  
+
   return (
     <div className="relative">
       <div className="relative h-64 md:h-80 w-full overflow-hidden">
@@ -23,7 +24,7 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
       </div>
-      
+
       <div className="container mx-auto px-4 relative -mt-24">
         <div className="flex flex-col md:flex-row gap-6 items-start md:items-end">
           <div className="relative h-36 w-36 md:h-48 md:w-48 rounded-full overflow-hidden border-4 border-background shadow-lg">
@@ -34,11 +35,11 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
               className="object-cover"
             />
           </div>
-          
+
           <div className="flex-1 space-y-2">
             <div className="space-y-1">
               <h1 className="text-3xl md:text-5xl font-bold">{artist.strArtist}</h1>
-              
+
               <div className="flex flex-wrap gap-2 mt-2">
                 {artist.strGenre && (
                   <Badge variant="secondary">{artist.strGenre}</Badge>
@@ -55,12 +56,9 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
               </div>
             </div>
           </div>
-          
+
           <div className="flex gap-2 mt-4 md:mt-0">
-            <Button size="sm" variant="default">
-              <Heart className="h-4 w-4 mr-2" />
-              Follow
-            </Button>
+            <LikeButton artistId={artist.idArtist} />
             <Button size="sm" variant="outline">
               <Share2 className="h-4 w-4 mr-2" />
               Share
@@ -74,7 +72,7 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
             )}
           </div>
         </div>
-        
+
         {artist.strBiographyEN && (
           <div className="mt-8 max-w-3xl">
             <h2 className="text-xl font-semibold mb-2">Biography</h2>
