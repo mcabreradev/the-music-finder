@@ -1,4 +1,3 @@
-// "use client";
 import { useQuery } from '@tanstack/react-query';
 import { getAlbumsByArtistId } from '@/lib/api';
 import { AlbumCard } from '@/components/album-card';
@@ -10,8 +9,6 @@ interface AlbumListProps {
 }
 
 export function AlbumList({ artistId }: AlbumListProps) {
-
-  console.log('artistId', artistId);
 
   const { data: albums, isLoading, error } = useQuery({
     queryKey: ['albums', artistId],

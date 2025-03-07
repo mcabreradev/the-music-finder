@@ -11,7 +11,7 @@ const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin'],
   weight: ['400', '600'],
   display: 'swap',
-  variable: '--font-be-vietnam',
+  // variable: '--font-be-vietnam',
 });
 
 export const metadata: Metadata = {
