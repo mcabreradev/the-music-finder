@@ -60,7 +60,8 @@ export const searchArtists = async (query: string): Promise<Artist[]> => {
     enqueueRequest(async () => {
       try {
         const response = await handleApiRequest(
-          api.get(`/search?s=${encodeURIComponent(query)}`)
+          // api.get(`/search?s=${encodeURIComponent(query)}`)
+          api.get(`/search?s=coldplay`)
         );
 
         resolve(response.data.artists || []);
