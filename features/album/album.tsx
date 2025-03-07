@@ -48,7 +48,7 @@ import { Clock, Disc, Music2 } from 'lucide-react';
     const formattedMinutes = minutes.toString().padStart(2, "0");
     const formattedSeconds = seconds.toString().padStart(2, "0");
 
-    return formattedHours ? `${formattedHours}:${formattedMinutes}:${formattedSeconds}` : `${formattedMinutes}:${formattedSeconds}`;
+    return formattedHours !== '00' ? `${formattedHours}:${formattedMinutes}:${formattedSeconds}` : `${formattedMinutes}:${formattedSeconds}`;
   }
 
   return (
@@ -67,7 +67,7 @@ import { Clock, Disc, Music2 } from 'lucide-react';
             <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
           </div>
 
-          <div className="container mx-auto px-4 relative -mt-24">
+          <div className="container mx-auto px-8 relative -mt-24">
             <div className="flex flex-col md:flex-row gap-6 items-start md:items-end">
               <div className="relative h-36 w-36 md:h-48 md:w-48 rounded-lg overflow-hidden shadow-lg">
                 <Image
@@ -125,12 +125,26 @@ import { Clock, Disc, Music2 } from 'lucide-react';
         </div>
 
         {/* Track List */}
-        <div className="container mx-auto px-4 mt-8">
+        <div className="container mx-auto px-8 mt-8">
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Tracks</h2>
 
             {album.tracks && album.tracks.length > 0 ? (
               <div className="space-y-2">
+                <div
+                    className="flex items-center gap-4 p-3 rounded-md"
+                  >
+                    <div className="w-6 text-center text-sm text-muted-foreground">
+                      #
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium">Title</p>
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      <Clock className="h-6 w-6" />
+                    </div>
+                </div>
                 {album.tracks.map((track, index) => (
                   <div
                     key={track.idTrack}
