@@ -111,7 +111,66 @@ export interface Album {
   strAmazonID: any
   strLocked: string
   strDescription: any
+  tracks?: Track[]
 }
+
+export interface Track {
+  idTrack: string
+  idAlbum: string
+  idArtist: string
+  idLyric: string
+  idIMVDB: any
+  strTrack: string
+  strAlbum: string
+  strArtist: string
+  strArtistAlternate: any
+  intCD: any
+  intDuration: string
+  strGenre: string
+  strMood: any
+  strStyle: any
+  strTheme: any
+  strDescriptionEN?: string
+  strDescriptionDE: any
+  strDescriptionFR: any
+  strDescriptionCN: any
+  strDescriptionIT: any
+  strDescriptionJP: any
+  strDescriptionRU: any
+  strDescriptionES: any
+  strDescriptionPT: any
+  strDescriptionSE: any
+  strDescriptionNL: any
+  strDescriptionHU: any
+  strDescriptionNO: any
+  strDescriptionIL: any
+  strDescriptionPL: any
+  strTrackThumb: any
+  strTrack3DCase: any
+  strTrackLyrics?: string
+  strMusicVid?: string
+  strMusicVidDirector: any
+  strMusicVidCompany: any
+  strMusicVidScreen1: any
+  strMusicVidScreen2: any
+  strMusicVidScreen3: any
+  intMusicVidViews: any
+  intMusicVidLikes: any
+  intMusicVidDislikes: any
+  intMusicVidFavorites: any
+  intMusicVidComments: any
+  intTrackNumber: string
+  intLoved: string
+  intScore: any
+  intScoreVotes: any
+  intTotalListeners: any
+  intTotalPlays: any
+  strMusicBrainzID: string
+  strMusicBrainzAlbumID: string
+  strMusicBrainzArtistID: string
+  strLocked: string
+}
+
 
 export interface SearchState {
   query: string;

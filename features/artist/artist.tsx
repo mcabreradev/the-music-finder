@@ -1,7 +1,6 @@
 'use client'
 
 import { Suspense, use } from 'react';
-import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 import { ArtistHeader } from '@/components/artist-header';

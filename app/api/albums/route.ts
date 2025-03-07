@@ -5,9 +5,9 @@ import apiClient, {endpoints} from '@/lib/client';
 
 
 export async function GET(request: NextRequest) {
-  const param = request.nextUrl.searchParams.get('m');
+  const param = request.nextUrl.searchParams.get('i');
     try {
-     const response = await apiClient.get<Album>(endpoints.artistAlbum, { params: { m: param } });
+     const response = await apiClient.get<Album>(endpoints.artistAlbum, { params: { i: param } });
 
       return NextResponse.json(response)
     } catch (error) {

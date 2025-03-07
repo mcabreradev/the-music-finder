@@ -46,5 +46,6 @@ export default apiClient;
 export const endpoints = {
   searchArtist: '/search.php',
   artistDetails: '/artist.php',
-  artistAlbums: '/album.php',
+  artistAlbum: '/album.php',
+  artistTrack: '/track.php',
 };

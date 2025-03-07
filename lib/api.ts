@@ -99,10 +99,36 @@ export const getAlbumsByArtistId = async (artistId: string): Promise<Album[]> =>
     enqueueRequest(async () => {
       try {
         const response = await handleApiRequest(
-          api.get(`/album?i=${artistId}`)
+          api.get(`/albums?i=${artistId}`)
         );
 
         resolve(response.data.album || []);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+};
+
+// Get album by ID with tracks
+export const getAlbumById = async (albumId: string): Promise<Album> => {
+  return new Promise((resolve, reject) => {
+    enqueueRequest(async () => {
+      try {
+        const [albumResponse, tracksResponse] = await Promise.all([
+          handleApiRequest(api.get(`/album?m=${albumId}`)),
+          handleApiRequest(api.get(`/track?m=${albumId}`)),
+        ]);
+
+        if (!albumResponse.data.album || albumResponse.data.album.length === 0) {
+          reject(new Error('Album not found'));
+          return;
+        }
+
+        const album = albumResponse.data.album[0];
+        album.tracks = tracksResponse.data.track || [];
+
+        resolve(album);
       } catch (error) {
         reject(error);
       }
