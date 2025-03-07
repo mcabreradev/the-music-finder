@@ -9,7 +9,7 @@ import { getAlbumById } from '@/lib/api';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Clock, Disc, ExternalLink, Music2 } from 'lucide-react';
+import { Clock, Disc, Music2 } from 'lucide-react';
 
   type Params = Promise<{ id: string }>
 
