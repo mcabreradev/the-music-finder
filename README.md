@@ -55,14 +55,19 @@ A modern web application for discovering and exploring music artists and their a
 ## Project Structure
 
 ```
-├── app/                    # Next.js 13 app directory
+├── app/                   # Next.js 15 app directory
 │   ├── album/             # Album-related pages
 │   ├── artist/            # Artist-related pages
 │   ├── search/            # Search functionality
 │   └── layout.tsx         # Root layout
 ├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   └── ...               # Feature-specific components
+│   ├── ui/                # Reusable UI components
+│   └── ...                # Feature-specific components
+├── features/              # List of Features
+│   ├── album/             # Album-related pages
+│   ├── artist/            # Artist-related pages
+│   ├── search/            # Search functionality
+│   └── layout.tsx         # Root layout
 ├── lib/                  # Utility functions and API
 ├── types/                # TypeScript type definitions
 ├── hooks/                # Custom React hooks

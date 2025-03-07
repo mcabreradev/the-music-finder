@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/lib/query-provider';
 import { Sidebar } from '@/components/sidebar';
+import { MobileNav } from '@/components/mobile-nav';
 
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin'],
@@ -37,6 +38,11 @@ export default function RootLayout({
             <div className="flex min-h-screen">
               <Sidebar />
               <main className="flex-1 overflow-auto">
+                <div className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                  <div className="container flex h-14 max-w-screen-2xl items-center">
+                    <MobileNav />
+                  </div>
+                </div>
                 {children}
               </main>
             </div>

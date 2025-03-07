@@ -7,9 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getAlbumById } from '@/lib/api';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Clock, Disc, Music2 } from 'lucide-react';
+import { TrackLikeButton } from '@/components/track-like-button';
 
   type Params = Promise<{ id: string }>
 
@@ -163,6 +163,8 @@ import { Clock, Disc, Music2 } from 'lucide-react';
                         </p>
                       )}
                     </div>
+
+                    <TrackLikeButton trackId={track.idTrack} />
 
                     <div className="text-sm text-muted-foreground">
                       {formatDuration(track.intDuration)}

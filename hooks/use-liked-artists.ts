@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Artist } from '@/types';
 
 const STORAGE_KEY = 'liked_artists';
 
