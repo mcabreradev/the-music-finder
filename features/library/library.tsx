@@ -1,29 +1,51 @@
 "use client";
 
 import { useQuery } from '@tanstack/react-query';
-import { Music2, Heart, Disc } from 'lucide-react';
-import { getArtistById } from '@/lib/api';
-import { useLikedArtists } from '@/hooks/use-liked-artists';
+import { Music2, Heart, Disc, ExternalLink } from 'lucide-react';
+import { getArtistById, getTrackById } from '@/lib/api';
+import { useFollowedArtists } from '@/hooks/use-followed-artists';
 import { useLikedTracks } from '@/hooks/use-liked-tracks';
 import { ArtistCard } from '@/components/artist-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { TrackLikeButton } from '@/components/track-like-button';
 
 export function LibraryPage() {
-  const { likedArtistIds, isLoaded: artistsLoaded } = useLikedArtists();
+  const { followedArtistIds, isLoaded: artistsLoaded } = useFollowedArtists();
   const { likedTrackIds, isLoaded: tracksLoaded } = useLikedTracks();
 
-  const { data: likedArtists, isLoading: artistsLoading } = useQuery({
-    queryKey: ['likedArtists', likedArtistIds],
+  const { data: followedArtists, isLoading: artistsLoading } = useQuery({
+    queryKey: ['followedArtists', followedArtistIds],
     queryFn: async () => {
-      if (!likedArtistIds.length) return [];
-      return Promise.all(likedArtistIds.map(id => getArtistById(id)));
+      if (!followedArtistIds.length) return [];
+      return Promise.all(followedArtistIds.map(id => getArtistById(id)));
     },
-    enabled: artistsLoaded && likedArtistIds.length > 0,
+    enabled: artistsLoaded && followedArtistIds.length > 0,
+  });
+
+  const { data: likedTracks, isLoading: tracksLoading } = useQuery({
+    queryKey: ['likedTracks', likedTrackIds],
+    queryFn: async () => {
+      if (!likedTrackIds.length) return [];
+      return Promise.all(likedTrackIds.map(id => getTrackById(id)));
+    },
+    enabled: tracksLoaded && likedTrackIds.length > 0,
   });
 
   const showArtistsLoading = !artistsLoaded || artistsLoading;
-  const showArtistsEmpty = artistsLoaded && !showArtistsLoading && (!likedArtists || likedArtists.length === 0);
+  const showArtistsEmpty = artistsLoaded && !showArtistsLoading && (!followedArtists || followedArtists.length === 0);
+  const showTracksLoading = !tracksLoaded || tracksLoading;
+  const showTracksEmpty = tracksLoaded && !showTracksLoading && (!likedTracks || likedTracks.length === 0);
+
+  // Format track duration from seconds to mm:ss
+  const formatDuration = (seconds: string | undefined) => {
+    if (!seconds) return '--:--';
+    const duration = parseInt(seconds);
+    const minutes = Math.floor(duration / 60);
+    const remainingSeconds = duration % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -47,9 +69,9 @@ export function LibraryPage() {
                 <Heart className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h2 className="text-2xl font-semibold">Liked Artists</h2>
+                <h2 className="text-2xl font-semibold">Followed Artists</h2>
                 <p className="text-sm text-muted-foreground">
-                  {likedArtists?.length || 0} artists you follow
+                  {followedArtists?.length || 0} artists you follow
                 </p>
               </div>
             </div>
@@ -67,14 +89,14 @@ export function LibraryPage() {
             ) : showArtistsEmpty ? (
               <div className="text-center py-12">
                 <Music2 className="h-12 w-12 mx-auto text-muted-foreground mb-3" />
-                <p className="text-lg font-medium">No liked artists yet</p>
+                <p className="text-lg font-medium">No followed artists yet</p>
                 <p className="text-sm text-muted-foreground mt-1">
                   Follow artists to see them here
                 </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {likedArtists?.map((artist) => (
+                {followedArtists?.map((artist) => (
                   <ArtistCard key={artist.idArtist} artist={artist} />
                 ))}
               </div>
@@ -89,12 +111,12 @@ export function LibraryPage() {
               <div>
                 <h2 className="text-2xl font-semibold">Liked Songs</h2>
                 <p className="text-sm text-muted-foreground">
-                  {likedTrackIds.length} songs you love
+                  {likedTracks?.length || 0} songs you love
                 </p>
               </div>
             </div>
 
-            {!tracksLoaded ? (
+            {showTracksLoading ? (
               <div className="space-y-4">
                 {Array(4).fill(0).map((_, i) => (
                   <div key={i} className="flex items-center gap-4">
@@ -106,7 +128,7 @@ export function LibraryPage() {
                   </div>
                 ))}
               </div>
-            ) : likedTrackIds.length === 0 ? (
+            ) : showTracksEmpty ? (
               <div className="text-center py-12">
                 <Disc className="h-12 w-12 mx-auto text-muted-foreground mb-3" />
                 <p className="text-lg font-medium">No liked songs yet</p>
@@ -115,12 +137,36 @@ export function LibraryPage() {
                 </p>
               </div>
             ) : (
-              <div className="text-center py-12">
-                <Disc className="h-12 w-12 mx-auto text-muted-foreground mb-3" />
-                <p className="text-lg font-medium">Coming Soon</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Liked songs feature is under development
-                </p>
+              <div className="space-y-2">
+                {likedTracks?.map((track) => (
+                  <div
+                    key={track.idTrack}
+                    className="flex items-center gap-4 p-3 rounded-md hover:bg-card group"
+                  >
+                    <Music2 className="w-6 h-6 text-primary" />
+
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{track.strTrack}</p>
+                      <p className="text-sm text-muted-foreground truncate">
+                        {track.strAlbum}
+                      </p>
+                    </div>
+
+                    <TrackLikeButton trackId={track.idTrack} />
+
+                    <div className="text-sm text-muted-foreground">
+                      {formatDuration(track.intDuration)}
+                    </div>
+
+                    {track.strMusicVid && (
+                      <Button size="icon" variant="ghost" asChild>
+                        <a href={track.strMusicVid} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
           </TabsContent>

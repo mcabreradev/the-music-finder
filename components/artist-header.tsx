@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { Artist } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Heart, Share2 } from 'lucide-react';
-import { LikeButton } from '@/components/like-button';
+import { ExternalLink, Share2 } from 'lucide-react';
+import { FollowButton } from '@/components/follow-button';
 
 interface ArtistHeaderProps {
   artist: Artist;
@@ -58,7 +58,7 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
           </div>
 
           <div className="flex gap-2 mt-4 md:mt-0">
-            <LikeButton artistId={artist.idArtist} />
+            <FollowButton artistId={artist.idArtist} />
             <Button size="sm" variant="outline">
               <Share2 className="h-4 w-4 mr-2" />
               Share

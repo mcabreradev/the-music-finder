@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
-const STORAGE_KEY = 'liked_artists';
+const STORAGE_KEY = 'followed_artists';
 
-export function useLikedArtists() {
-  const [likedArtistIds, setLikedArtistIds] = useState<string[]>([]);
+export function useFollowedArtists() {
+  const [followedArtistIds, setFollowedArtistIds] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    setLikedArtistIds(stored ? JSON.parse(stored) : []);
+    setFollowedArtistIds(stored ? JSON.parse(stored) : []);
     setIsLoaded(true);
   }, []);
 
-  const toggleLike = (artistId: string) => {
-    setLikedArtistIds(prev => {
+  const toggleFollow = (artistId: string) => {
+    setFollowedArtistIds(prev => {
       const newIds = prev.includes(artistId)
         ? prev.filter(id => id !== artistId)
         : [...prev, artistId];
@@ -23,12 +23,12 @@ export function useLikedArtists() {
     });
   };
 
-  const isLiked = (artistId: string) => likedArtistIds.includes(artistId);
+  const isFollowed = (artistId: string) => followedArtistIds.includes(artistId);
 
   return {
-    likedArtistIds,
-    toggleLike,
-    isLiked,
+    followedArtistIds,
+    toggleFollow,
+    isFollowed,
     isLoaded
   };
 }

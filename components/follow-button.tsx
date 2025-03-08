@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
-import { useLikedArtists } from '@/hooks/use-followed-artists';
+import { useFollowedArtists } from '@/hooks/use-followed-artists';
 import { cn } from '@/lib/utils';
 
 interface LikeButtonProps {
@@ -10,19 +10,19 @@ interface LikeButtonProps {
   className?: string;
 }
 
-export function LikeButton({ artistId, className }: LikeButtonProps) {
-  const { isLiked, toggleLike, isLoaded } = useLikedArtists();
+export function FollowButton({ artistId, className }: LikeButtonProps) {
+  const { isFollowed, toggleFollow, isLoaded } = useFollowedArtists();
 
   if (!isLoaded) return null;
 
-  const liked = isLiked(artistId);
+  const liked = isFollowed(artistId);
 
   return (
     <Button
       size="sm"
       variant={liked ? "default" : "outline"}
       className={cn("gap-2", className)}
-      onClick={() => toggleLike(artistId)}
+      onClick={() => toggleFollow(artistId)}
     >
       <Heart className={cn(
         "h-4 w-4",

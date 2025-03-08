@@ -137,6 +137,28 @@ export const getAlbumById = async (albumId: string): Promise<Album> => {
   });
 };
 
+// Get track by ID
+export const getTrackById = async (trackId: string): Promise<Track> => {
+  return new Promise((resolve, reject) => {
+    enqueueRequest(async () => {
+      try {
+        const response = await handleApiRequest(
+          api.get(`/track.php?h=${trackId}`)
+        );
+
+        if (!response.data.track || response.data.track.length === 0) {
+          reject(new Error('Track not found'));
+          return;
+        }
+
+        resolve(response.data.track[0]);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+};
+
 // Get featured artists (random selection from a predefined list)
 export const getFeaturedArtists = async (): Promise<Artist[]> => {
   // List of popular artist IDs
