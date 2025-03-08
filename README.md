@@ -13,6 +13,9 @@ A modern web application for discovering and exploring music artists and their a
 - 🚀 Fast and optimized performance
 - ♿ Accessible design
 - 📱 Mobile-friendly interface
+- ❤️ Follow artists and like songs with local storage persistence
+- 📚 Personal library with followed artists and liked songs
+- 🎼 Track details including duration and music video links
 
 ## Tech Stack
 
@@ -88,10 +91,28 @@ A modern web application for discovering and exploring music artists and their a
 
 The application uses TheAudioDB API to fetch music data. Key features include:
 
-- Artist search
-- Artist details
-- Album listings
-- Track information
+### Artist Endpoints
+
+```typescript
+// Search for artists
+const artists = await searchArtists("query");
+
+// Get artist details
+const artist = await getArtistById("artistId");
+
+// Get artist albums
+const albums = await getAlbumsByArtistId("artistId");
+```
+
+### Album Endpoints
+
+```typescript
+// Get album with tracks
+const album = await getAlbumById("albumId");
+
+// Get track details
+const track = await getTrackById("trackId");
+```
 
 Rate limiting is implemented to ensure API stability:
 - Maximum 2 requests per second
@@ -118,6 +139,18 @@ Built using shadcn/ui, including:
 - Badges
 - Skeletons for loading states
 - Toast notifications
+
+## Local Storage
+
+The application uses local storage to persist user preferences:
+
+```typescript
+// Follow/Unfollow artists
+const { followedArtistIds, toggleFollow } = useFollowedArtists();
+
+// Like/Unlike songs
+const { likedTrackIds, toggleLike } = useLikedTracks();
+```
 
 ## Testing
 
@@ -169,6 +202,14 @@ Key stories:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+### Development Guidelines
+
+- Follow the existing code style and conventions
+- Write tests for new features
+- Update documentation as needed
+- Ensure accessibility standards are maintained
+- Test across different browsers and devices
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -178,3 +219,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [TheAudioDB](https://www.theaudiodb.com/) for providing the API
 - [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
 - [Unsplash](https://unsplash.com/) for placeholder images
+- [Lucide Icons](https://lucide.dev/) for the icon set
