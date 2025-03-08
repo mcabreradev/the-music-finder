@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
-import { useLikedArtists } from '@/hooks/use-followed-artists';
+import { useLikedTracks } from '@/hooks/use-liked-tracks';
 import { cn } from '@/lib/utils';
 
 interface LikeButtonProps {
@@ -11,7 +11,7 @@ interface LikeButtonProps {
 }
 
 export function LikeButton({ artistId, className }: LikeButtonProps) {
-  const { isLiked, toggleLike, isLoaded } = useLikedArtists();
+  const { isLiked, toggleLike, isLoaded } = useLikedTracks();
 
   if (!isLoaded) return null;
 

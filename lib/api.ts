@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Artist, Album } from '@/types';
+import { Artist, Album, Track } from '@/types';
 
 // Create an axios instance with rate limiting
 const api = axios.create({
