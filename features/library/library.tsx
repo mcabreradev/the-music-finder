@@ -1,14 +1,15 @@
 "use client";
 
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { Music2, Heart, Disc, ExternalLink } from 'lucide-react';
 import { getArtistById, getTrackById } from '@/lib/api';
+import { formatDuration } from '@/lib/time';
 import { useFollowedArtists } from '@/hooks/use-followed-artists';
 import { useLikedTracks } from '@/hooks/use-liked-tracks';
 import { ArtistCard } from '@/components/artist-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
 import { TrackLikeButton } from '@/components/track-like-button';
 
 export function LibraryPage() {
@@ -37,15 +38,6 @@ export function LibraryPage() {
   const showArtistsEmpty = artistsLoaded && !showArtistsLoading && (!followedArtists || followedArtists.length === 0);
   const showTracksLoading = !tracksLoaded || tracksLoading;
   const showTracksEmpty = tracksLoaded && !showTracksLoading && (!likedTracks || likedTracks.length === 0);
-
-  // Format track duration from seconds to mm:ss
-  const formatDuration = (seconds: string | undefined) => {
-    if (!seconds) return '--:--';
-    const duration = parseInt(seconds);
-    const minutes = Math.floor(duration / 60);
-    const remainingSeconds = duration % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -148,7 +140,8 @@ export function LibraryPage() {
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">{track.strTrack}</p>
                       <p className="text-sm text-muted-foreground truncate">
-                        {track.strAlbum}
+                        <Link href={`/artist/${track.idArtist}`}>{track.strArtist}</Link>{' - '}
+                        <Link href={`/album/${track.idAlbum}`}>{track.strAlbum}</Link>
                       </p>
                     </div>
 
@@ -157,14 +150,6 @@ export function LibraryPage() {
                     <div className="text-sm text-muted-foreground">
                       {formatDuration(track.intDuration)}
                     </div>
-
-                    {track.strMusicVid && (
-                      <Button size="icon" variant="ghost" asChild>
-                        <a href={track.strMusicVid} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </Button>
-                    )}
                   </div>
                 ))}
               </div>

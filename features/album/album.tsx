@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAlbumById } from '@/lib/api';
+import { formatDuration } from '@/lib/time';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Clock, Disc, Music2 } from 'lucide-react';
@@ -35,20 +36,6 @@ import { TrackLikeButton } from '@/components/track-like-button';
 
   if (!album || error) {
     notFound();
-  }
-
-  // Format track duration from seconds to mm:ss
-  function formatDuration(milliseconds: string | undefined) {
-    const totalSeconds = Math.floor((milliseconds ? parseInt(milliseconds) : 0) / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    const formattedHours = hours.toString().padStart(2, "0");
-    const formattedMinutes = minutes.toString().padStart(2, "0");
-    const formattedSeconds = seconds.toString().padStart(2, "0");
-
-    return formattedHours !== '00' ? `${formattedHours}:${formattedMinutes}:${formattedSeconds}` : `${formattedMinutes}:${formattedSeconds}`;
   }
 
   return (
