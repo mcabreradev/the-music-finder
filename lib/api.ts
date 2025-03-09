@@ -61,6 +61,7 @@ export const searchArtists = async (query: string): Promise<Artist[]> => {
       try {
         const response = await handleApiRequest(
           // api.get(`/search?s=${encodeURIComponent(query)}`)
+          // the endpoint only work with this hardcoded coldplay query
           api.get(`/search?s=coldplay`)
         );
 
@@ -103,7 +104,11 @@ export const getAlbumsByArtistId = async (artistId: string): Promise<Album[]> =>
           api.get(`/albums?i=${artistId}`)
         );
 
-        resolve(response.data.album || []);
+        // sort albums by year intYearReleased
+        const albums = response.data.album.sort((a: Album, b: Album) => {
+          return parseInt(b.intYearReleased) - parseInt(a.intYearReleased);
+        });
+        resolve(albums || []);
       } catch (error) {
         reject(error);
       }
@@ -118,7 +123,7 @@ export const getAlbumById = async (albumId: string): Promise<Album> => {
       try {
         const [albumResponse, tracksResponse] = await Promise.all([
           handleApiRequest(api.get(`/album?m=${albumId}`)),
-          handleApiRequest(api.get(`/track?m=${albumId}`)),
+          handleApiRequest(api.get(`/tracks?m=${albumId}`)),
         ]);
 
         if (!albumResponse.data.album || albumResponse.data.album.length === 0) {
@@ -163,14 +168,18 @@ export const getTrackById = async (trackId: string): Promise<Track> => {
 export const getFeaturedArtists = async (): Promise<Artist[]> => {
   // List of popular artist IDs
   const popularArtistIds = [
-    '111239', // Adele
-    '111255', // Beyoncé
-    '111301', // Coldplay
-    '111992', // Ed Sheeran
-    '112024', // Taylor Swift
-    '111329', // Drake
-    '111318', // Daft Punk
-    '111247', // Ariana Grande
+   '111233', // Foo Fighters
+   '111239', // Coldplay
+   '111236', // Lady Gaga
+   '111238', // Queen
+   '111247', // The Beatles
+   '111248', // Elvis Presley
+   '111259', // Pink Floyd
+   '111273', // BackStreet Boys
+   '111255', // Madonna
+   '111268', // Aerosmith
+   '111279', // Metallica
+   '111283', // Guns N' Roses
   ];
 
   // Randomly select 4 artists

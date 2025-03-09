@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { Music2, Heart, Disc, ExternalLink } from 'lucide-react';
+import { Music2, Heart, Disc } from 'lucide-react';
 import { getArtistById, getTrackById } from '@/lib/api';
 import { formatDuration } from '@/lib/time';
 import { useFollowedArtists } from '@/hooks/use-followed-artists';
@@ -20,7 +20,7 @@ export function LibraryPage() {
     queryKey: ['followedArtists', followedArtistIds],
     queryFn: async () => {
       if (!followedArtistIds.length) return [];
-      return Promise.all(followedArtistIds.map(id => getArtistById(id)));
+      return Promise.all(followedArtistIds.reverse().map(id => getArtistById(id)));
     },
     enabled: artistsLoaded && followedArtistIds.length > 0,
   });
@@ -29,7 +29,7 @@ export function LibraryPage() {
     queryKey: ['likedTracks', likedTrackIds],
     queryFn: async () => {
       if (!likedTrackIds.length) return [];
-      return Promise.all(likedTrackIds.map(id => getTrackById(id)));
+      return Promise.all(likedTrackIds.reverse().map(id => getTrackById(id)));
     },
     enabled: tracksLoaded && likedTrackIds.length > 0,
   });
