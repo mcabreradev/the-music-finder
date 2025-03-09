@@ -143,7 +143,7 @@ export const getTrackById = async (trackId: string): Promise<Track> => {
     enqueueRequest(async () => {
       try {
         const response = await handleApiRequest(
-          api.get(`/track.php?h=${trackId}`)
+          api.get(`/track?h=${trackId}`)
         );
 
         if (!response.data.track || response.data.track.length === 0) {
