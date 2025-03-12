@@ -3,9 +3,7 @@ import { SearchResults } from '@/components/search-results';
 import { SearchForm } from '@/components/search-form';
 import { Skeleton } from '@/components/ui/skeleton';
 
-// type Params = Promise<{ slug: string }>
 type SearchParams = Promise<{ q: string | undefined }>
-
 
 export function SearchPage({
   searchParams,

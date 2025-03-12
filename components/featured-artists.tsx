@@ -49,7 +49,7 @@ function FeaturedArtistsSkeleton() {
       <Skeleton className="h-8 w-48" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {Array(4).fill(0).map((_, i) => (
+        {Array(8).fill(0).map((_, i) => (
           <div key={i} className="space-y-3">
             <Skeleton className="aspect-square rounded-md" />
             <Skeleton className="h-5 w-3/4" />

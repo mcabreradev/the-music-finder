@@ -42,6 +42,8 @@ const apiClient = ApiSingleton.getInstance();
 
 export default apiClient;
 
+export { ApiSingleton };
+
 // src/lib/api/endpoints.ts
 export const endpoints = {
   searchArtist: '/search.php',

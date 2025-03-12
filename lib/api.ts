@@ -185,7 +185,7 @@ export const getFeaturedArtists = async (): Promise<Artist[]> => {
   // Randomly select 4 artists
   const selectedIds = [...popularArtistIds]
     .sort(() => 0.5 - Math.random())
-    .slice(0, 4);
+    .slice(0, 8);
 
   const artists = await Promise.all(
     selectedIds.map(id => getArtistById(id))
