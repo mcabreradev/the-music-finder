@@ -2,6 +2,7 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import { Be_Vietnam_Pro } from 'next/font/google';
+import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/lib/query-provider';
@@ -49,6 +50,7 @@ export default function RootLayout({
             <Toaster />
           </QueryProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
