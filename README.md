@@ -39,7 +39,7 @@ A modern web application for discovering and exploring music artists and their a
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/music-finder.git
+   git clone https://github.com/mcabreradev/music-finder.git
    cd music-finder
    ```
 
